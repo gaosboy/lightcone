@@ -1,4 +1,4 @@
-from playhouse.pool import PooledMySQLDatabase
+import importlib
 
 from gramai.utils.cache import singleton
 from gramai.utils.config import Config
@@ -10,7 +10,8 @@ class MySQL:
         # 读取配置
         db_config = Config("mysql.ini")
         # 配置连接池
-        self._conn = PooledMySQLDatabase(
+        pool_module = importlib.import_module('playhouse.pool')
+        self._conn = pool_module.PooledMySQLDatabase(
             database=db_config.get("mysql.database"),
             user=db_config.get("mysql.user"),
             password=db_config.get("mysql.password"),
