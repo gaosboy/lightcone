@@ -112,7 +112,7 @@ class Gate:
             logging.error(f"：{e}")
             return build_error_response(cmd)
 
-        after_response = cls.__before_method(cmd)
+        after_response = cls.__after_method(cmd, response)
         if after_response is not None:
             return after_response
 
